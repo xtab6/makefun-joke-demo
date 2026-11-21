@@ -30,6 +30,9 @@ def main() -> int:
     if "\n" in JOKE:
         print("joke must be one line", file=sys.stderr)
         return 1
+    if any(ord(c) < 0x20 for c in JOKE):
+        print("joke must not contain control characters", file=sys.stderr)
+        return 1
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as f:
